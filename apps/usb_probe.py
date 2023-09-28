@@ -40,6 +40,7 @@ from bumble.transport.usb import load_libusb
 # -----------------------------------------------------------------------------
 USB_DEVICE_CLASS_DEVICE = 0x00
 USB_DEVICE_CLASS_WIRELESS_CONTROLLER = 0xE0
+USB_CLASS_MISC = 0xEF
 USB_DEVICE_SUBCLASS_RF_CONTROLLER = 0x01
 USB_DEVICE_PROTOCOL_BLUETOOTH_PRIMARY_CONTROLLER = 0x01
 
@@ -150,8 +151,9 @@ def is_bluetooth_hci(device):
     ) == USB_BT_HCI_CLASS_TUPLE:
         return True
 
-    # If the device class is 'Device', look for a matching interface
-    if device.getDeviceClass() == USB_DEVICE_CLASS_DEVICE:
+    # If the device class is 'Device' or 'Misc', look for a matching interface
+    if (device.getDeviceClass() == USB_DEVICE_CLASS_DEVICE
+        or device.getDeviceClass() == USB_CLASS_MISC):
         for configuration in device:
             for interface in configuration:
                 for setting in interface:

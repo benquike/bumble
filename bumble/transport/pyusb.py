@@ -226,6 +226,9 @@ async def open_pyusb_transport(spec: str) -> Transport:
                 bDeviceProtocol=USB_DEVICE_PROTOCOL_BLUETOOTH_PRIMARY_CONTROLLER,
             )
         )
+
+        # update this part
+        device = None
         if len(devices) > device_index:
             device = devices[device_index]
         else:
