@@ -1321,6 +1321,100 @@ HCI_SUPPORTED_COMMANDS_FLAGS = (
     )
 )
 
+# BR/EDR features
+# defined in BLUETOOTH CORE SPECIFICATION Version 5.4 | Vol 2, Part C page 594
+# 3.3 (LMP) FEATURE MASK DEFINITION
+# page 0
+HCI_3_SLOT_PACKETS_BREDR_FEATURE                                               = 0
+HCI_5_SLOT_PACKETS_BREDR_FEATURE                                               = 1
+HCI_ENCRYPTION_BREDR_FEATURE                                                   = 2
+HCI_SLOT_OFFSET_BREDR_FEATURE                                                  = 3
+HCI_TIMING_ACCURACY_BREDR_FEATURE                                              = 4
+HCI_ROLE_SWITCH_BREDR_FEATURE                                                  = 5
+HCI_HOLD_MODE_BREDR_FEATURE                                                    = 6
+HCI_SNIFF_MODE_BREDR_FEATURE                                                   = 7
+HCI_PREVIOUSLY_USED_BREDR_FEATURE                                              = 8
+HCI_POWER_CONTROL_REQUESTS_BREDR_FEATURE                                       = 9
+HCI_CHANNEL_QUALITY_DRIVEN_DATA_RATE_CQDDR_BREDR_FEATURE                       = 10
+HCI_SCO_LINK_BREDR_FEATURE                                                     = 11
+HCI_HV2_PACKETS_BREDR_FEATURE                                                  = 12
+HCI_HV3_PACKETS_BREDR_FEATURE                                                  = 13
+HCI_MU_LAW_LOG_SYNCHRONOUS_DATA_BREDR_FEATURE                                  = 14
+HCI_A_LAW_LOG_SYNCHRONOUS_DATA_BREDR_FEATURE                                   = 15
+HCI_CVSD_SYNCHRONOUS_DATA_BREDR_FEATURE                                        = 16
+HCI_PAGING_PARAMETER_NEGOTIATION_BREDR_FEATURE                                 = 17
+HCI_POWER_CONTROL_BREDR_FEATURE                                                = 18
+HCI_TRANSPARENT_SYNCHRONOUS_DATA_BREDR_FEATURE                                 = 19
+HCI_FLOW_CONTROL_LAG_LEAST_SIGNIFICANT_BIT_BREDR_FEATURE                       = 20
+HCI_FLOW_CONTROL_LAG_MIDDLE_BIT_BREDR_FEATURE                                  = 21
+HCI_FLOW_CONTROL_LAG_MOST_SIGNIFICANT_BIT_BREDR_FEATURE                        = 22
+HCI_BROADCAST_ENCRYPTION_BREDR_FEATURE                                         = 23
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 24
+HCI_ENHANCED_DATA_RATE_ACL_2_MB_S_MODE_BREDR_FEATURE                           = 25
+HCI_ENHANCED_DATA_RATE_ACL_3_MB_S_MODE_BREDR_FEATURE                           = 26
+HCI_ENHANCED_INQUIRY_SCAN_SEE_NOTE_BREDR_FEATURE                               = 27
+HCI_INTERLACED_INQUIRY_SCAN_BREDR_FEATURE                                      = 28
+HCI_INTERLACED_PAGE_SCAN_BREDR_FEATURE                                         = 29
+HCI_RSSI_WITH_INQUIRY_RESULTS_BREDR_FEATURE                                    = 30
+HCI_EXTENDED_SCO_LINK_EV3_PACKETS_BREDR_FEATURE                                = 31
+HCI_EV4_PACKETS_BREDR_FEATURE                                                  = 32
+HCI_EV5_PACKETS_BREDR_FEATURE                                                  = 33
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 34
+HCI_AFH_CAPABLE_PERIPHERAL_BREDR_FEATURE                                       = 35
+HCI_AFH_CLASSIFICATION_PERIPHERAL_BREDR_FEATURE                                = 36
+HCI_BR_EDR_NOT_SUPPORTED_BREDR_FEATURE                                         = 37
+HCI_LE_SUPPORTED_CONTROLLER_BREDR_FEATURE                                      = 38
+HCI_3_SLOT_ENHANCED_DATA_RATE_ACL_PACKETS_BREDR_FEATURE                        = 39
+HCI_5_SLOT_ENHANCED_DATA_RATE_ACL_PACKETS_BREDR_FEATURE                        = 40
+HCI_SNIFF_SUBRATING_BREDR_FEATURE                                              = 41
+HCI_PAUSE_ENCRYPTION_BREDR_FEATURE                                             = 42
+HCI_AFH_CAPABLE_CENTRAL_BREDR_FEATURE                                          = 43
+HCI_AFH_CLASSIFICATION_CENTRAL_BREDR_FEATURE                                   = 44
+HCI_ENHANCED_DATA_RATE_ESCO_2_MB_S_MODE_BREDR_FEATURE                          = 45
+HCI_ENHANCED_DATA_RATE_ESCO_3_MB_S_MODE_BREDR_FEATURE                          = 46
+HCI_3_SLOT_ENHANCED_DATA_RATE_ESCO_PACKETS_BREDR_FEATURE                       = 47
+HCI_EXTENDED_INQUIRY_RESPONSE_BREDR_FEATURE                                    = 48
+HCI_SIMULTANEOUS_LE_AND_BR_EDR_TO_SAME_DEVICE_CAPABLE_CONTROLLER_BREDR_FEATURE = 49
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 50
+HCI_SECURE_SIMPLE_PAIRING_CONTROLLER_SUPPORT_BREDR_FEATURE                     = 51
+HCI_ENCAPSULATED_PDU_BREDR_FEATURE                                             = 52
+HCI_ERRONEOUS_DATA_REPORTING_BREDR_FEATURE                                     = 53
+HCI_NON_FLUSHABLE_PACKET_BOUNDARY_FLAG_BREDR_FEATURE                           = 54
+HCI_RESERVED_FOR_FUTURE_U_BREDR_FEATURE                                        = 55
+HCI_LINK_SUPERVISION_TIMEOUT_CHANGED_EVENT_BREDR_FEATURE                       = 56
+HCI_VARIABLE_INQUIRY_TX_POWER_LEVEL_BREDR_FEATURE                              = 57
+HCI_ENHANCED_POWER_CONTROL_BREDR_FEATURE                                       = 58
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 59
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 60
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 61
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 62
+HCI_EXTENDED_FEATURES_BREDR_FEATURE                                            = 63
+
+# page 1
+HCI_SECURE_SIMPLE_PAIRING_HOST_SUPPORT_BREDR_FEATURE                           = 64
+HCI_LE_SUPPORTED_HOST_BREDR_FEATURE                                            = 65
+HCI_PREVIOUSLY_USED_BREDR_FEATURE                                              = 66
+HCI_SECURE_CONNECTIONS_HOST_SUPPORT_BREDR_FEATURE                              = 67
+
+# page 2
+HCI_CONNECTIONLESS_PERIPHERAL_BROADCAST_TRANSMITTER_OPERATION_BREDR_FEATURE    = 128
+HCI_CONNECTIONLESS_PERIPHERAL_BROADCAST_RECEIVER_OPERATION_BREDR_FEATURE       = 129
+HCI_SYNCHRONIZATION_TRAIN_BREDR_FEATURE                                        = 130
+HCI_SYNCHRONIZATION_SCAN_BREDR_FEATURE                                         = 131
+HCI_HCI_INQUIRY_RESPONSE_NOTIFICATION_EVENT_BREDR_FEATURE                      = 132
+HCI_GENERALIZED_INTERLACED_SCAN_BREDR_FEATURE                                  = 133
+HCI_COARSE_CLOCK_ADJUSTMENT_BREDR_FEATURE                                      = 134
+HCI_RESERVED_FOR_FUTURE_USE_BREDR_FEATURE                                      = 135
+HCI_SECURE_CONNECTIONS_CONTROLLER_SUPPORT_BREDR_FEATURE                        = 136
+HCI_PING_BREDR_FEATURE                                                         = 137
+HCI_SLOT_AVAILABILITY_MASK_BREDR_FEATURE                                       = 138
+HCI_TRAIN_NUDGING_BREDR_FEATURE                                                = 139
+
+HCI_BREDR_SUPPORTED_FEATURES_NAMES = {
+    flag: feature_name for (feature_name, flag) in globals().items()
+    if feature_name.startswith('HCI_') and feature_name.endswith('_BREDR_FEATURE')
+}
+
 # LE Supported Features
 HCI_LE_ENCRYPTION_LE_SUPPORTED_FEATURE                                = 0
 HCI_CONNECTION_PARAMETERS_REQUEST_PROCEDURE_LE_SUPPORTED_FEATURE      = 1
