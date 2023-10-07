@@ -412,8 +412,10 @@ async def open_usb_transport(spec: str) -> Transport:
                     return True
 
                 # If the device class is 'Device' or 'Misc', look for a matching interface
-                if (device.getDeviceClass() == USB_DEVICE_CLASS_DEVICE
-                    or device.getDeviceClass() == USB_CLASS_MISC):
+                if (
+                    device.getDeviceClass() == USB_DEVICE_CLASS_DEVICE
+                    or device.getDeviceClass() == USB_CLASS_MISC
+                ):
                     for configuration in device:
                         for interface in configuration:
                             for setting in interface:
