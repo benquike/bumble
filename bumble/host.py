@@ -55,6 +55,7 @@ from .hci import (
     HCI_LE_Long_Term_Key_Request_Reply_Command,
     HCI_LE_Read_Buffer_Size_Command,
     HCI_LE_Read_Local_Supported_Features_Command,
+    HCI_LE_Read_Remote_Features_Complete_Event,
     HCI_LE_Read_Suggested_Default_Data_Length_Command,
     HCI_LE_Remote_Connection_Parameter_Request_Reply_Command,
     HCI_LE_Set_Event_Mask_Command,
@@ -64,6 +65,8 @@ from .hci import (
     HCI_Packet,
     HCI_Read_Buffer_Size_Command,
     HCI_Read_Local_Supported_Commands_Command,
+    HCI_Read_Remote_Supported_Features_Complete_Event,
+    HCI_Read_Remote_Extended_Features_Complete_Event,
     HCI_Read_Local_Version_Information_Command,
     HCI_Reset_Command,
     HCI_Set_Event_Mask_Command,
@@ -667,6 +670,62 @@ class Host(AbortableEventEmitter):
 
             # Notify the listeners
             self.emit('disconnection_failure', event.connection_handle, event.status)
+
+    def on_hci_read_remote_supported_features_complete_event(
+        self, event: HCI_Read_Remote_Supported_Features_Complete_Event
+    ):
+        if event.status == HCI_SUCCESS:
+            self.emit(
+                'remote_supported_features',
+                event.connection_handler,
+                BT_BR_EDR_TRANSPORT,
+                event.lmp_features,
+            )
+        else:
+            self.emit(
+                'remote_supported_features_failure',
+                event.connection_handler,
+                BT_BR_EDR_TRANSPORT,
+                event.status,
+            )
+
+    def on_hci_read_remote_extended_features_complete_event(
+        self, event: HCI_Read_Remote_Extended_Features_Complete_Event
+    ):
+        if event.status == HCI_SUCCESS:
+            self.emit(
+                'remote_supported_features',
+                event.connection_handler,
+                BT_BR_EDR_TRANSPORT,
+                event.extended_lmp_features,
+                page_number = event.page_number,
+                max_page_number = event.max_page_number,
+            )
+        else:
+            self.emit(
+                'remote_supported_features_failure',
+                event.connection_handler,
+                BT_BR_EDR_TRANSPORT,
+                event.status,
+            )
+
+    def on_hci_le_read_remote_features_complete_event(
+        self, event: HCI_LE_Read_Remote_Features_Complete_Event
+    ):
+        if event.status == HCI_SUCCESS:
+            self.emit(
+                'remote_supported_features',
+                event.connection_handler,
+                BT_LE_TRANSPORT,
+                event.le_features,
+            )
+        else:
+            self.emit(
+                'remote_supported_features_failure',
+                event.connection_handler,
+                BT_LE_TRANSPORT,
+                event.status,
+            )
 
     def on_hci_le_connection_update_complete_event(self, event):
         if (connection := self.connections.get(event.connection_handle)) is None:

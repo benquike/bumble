@@ -51,6 +51,8 @@ from .hci import (
     HCI_GENERAL_INQUIRY_LAP,
     HCI_INVALID_HCI_COMMAND_PARAMETERS_ERROR,
     HCI_KEYBOARD_ONLY_IO_CAPABILITY,
+    HCI_READ_REMOTE_SUPPORTED_FEATURES_COMMAND,
+    HCI_READ_REMOTE_EXTENDED_FEATURES_COMMAND,
     HCI_LE_1M_PHY,
     HCI_LE_1M_PHY_BIT,
     HCI_LE_2M_PHY,
@@ -61,6 +63,7 @@ from .hci import (
     HCI_LE_CODED_PHY_LE_SUPPORTED_FEATURE,
     HCI_LE_EXTENDED_ADVERTISING_LE_SUPPORTED_FEATURE,
     HCI_LE_EXTENDED_CREATE_CONNECTION_COMMAND,
+    HCI_LE_READ_REMOTE_FEATURES_COMMAND,
     HCI_LE_RAND_COMMAND,
     HCI_LE_READ_PHY_COMMAND,
     HCI_LE_SET_PHY_COMMAND,
@@ -86,6 +89,8 @@ from .hci import (
     HCI_IO_Capability_Request_Reply_Command,
     HCI_Inquiry_Cancel_Command,
     HCI_Inquiry_Command,
+    HCI_Read_Remote_Supported_Features_Command,
+    HCI_Read_Remote_Extended_Features_Command,
     HCI_LE_Add_Device_To_Resolving_List_Command,
     HCI_LE_Advertising_Report_Event,
     HCI_LE_Clear_Resolving_List_Command,
@@ -97,6 +102,7 @@ from .hci import (
     HCI_LE_Extended_Create_Connection_Command,
     HCI_LE_Rand_Command,
     HCI_LE_Read_PHY_Command,
+    HCI_LE_Read_Remote_Features_Command,
     HCI_LE_Set_Address_Resolution_Enable_Command,
     HCI_LE_Set_Advertising_Data_Command,
     HCI_LE_Set_Advertising_Enable_Command,
@@ -747,6 +753,35 @@ class Connection(CompositeEventEmitter):
     # [Classic only]
     async def request_remote_name(self):
         return await self.device.request_remote_name(self)
+
+    async def read_remote_supported_features(self):
+        if self.transport == BT_BR_EDR_TRANSPORT:
+            if self.device.host.supports_command(
+                HCI_READ_REMOTE_EXTENDED_FEATURES_COMMAND
+            ):
+                pass
+            elif self.device.host.supports_command(
+                HCI_READ_REMOTE_SUPPORTED_FEATURES_COMMAND
+            ):
+                pass
+            else:
+                raise NotImplementedError(
+                    'neither HCI_Read_Remote_Supported_Features_Command'
+                    + ' nor HCI_Read_Remote_Extended_Features_Command'
+                    + ' supported by local controller'
+                )
+        else:  # LE
+            if self.device.host.supports_command(HCI_LE_READ_REMOTE_FEATURES_COMMAND):
+                self._remote_feature_fut = asyncio.get_event_loop().create_future()
+                self.device.host.send_command(HCI_LE_Read_Remote_Features_Command(connection_handle=self.handle))
+
+                res = await self._remote_feature_fut
+                # TODO
+            else:
+                raise NotImplementedError(
+                    'HCI_LE_Read_Remote_Features_Command not'
+                    + ' supported by local controller'
+                )
 
     async def __aenter__(self):
         return self
@@ -2206,6 +2241,9 @@ class Device(CompositeEventEmitter):
             check_result=True,
         )
 
+    async def read_remote_supported_features(self, connection):
+        return await connection.read_remote_supported_features()
+
     async def find_peer_by_name(self, name, transport=BT_LE_TRANSPORT):
         """
         Scan for a peer with a give name and return its address and transport
@@ -3143,6 +3181,18 @@ class Device(CompositeEventEmitter):
             max_rx_time,
         )
         connection.emit('connection_data_length_change')
+
+    @host_event_handler
+    @with_connection_from_handle
+    def on_remote_supported_features(self,
+        connection, transport, lmp_features, page_number=0, max_page_number=-1
+    ):
+        connection.emit()
+
+    @host_event_handler
+    @with_connection_from_handle
+    def on_remote_supported_features_failure(self, connection, transport, status):
+        connection.emit()
 
     # [Classic only]
     @host_event_handler
